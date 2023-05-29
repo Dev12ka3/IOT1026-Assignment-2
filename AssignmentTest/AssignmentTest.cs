@@ -1,37 +1,89 @@
 ﻿using Assignment;
-
 namespace AssignmentTest
 {
     [TestClass]
     public class AssignmentTests
     {
         [TestMethod]
-        public void OpenLockedTest()
+        public void UnlockTest()
         {
-            // Chest starts in the locked state
+            // Create a new chest that is initially locked
             TreasureChest chest = new TreasureChest(TreasureChest.State.Locked);
-            // Try to open the chest
-            // Verify chest is still locked
-            chest.Open();
-            Assert.AreEqual(chest.GetState(), TreasureChest.State.Locked);
+
+            // Unlock the chest
+            chest.Unlock();
+
+            // Verify that the chest is now in the closed state
+            Assert.AreEqual(TreasureChest.State.Closed, chest.GetState());
+
+            // Try to unlock the chest again
+            chest.Unlock();
+
+            // Verify that the chest remains in the closed state
+            Assert.AreEqual(TreasureChest.State.Closed, chest.GetState());
         }
 
         [TestMethod]
-        public void OpenClosedTest()
+        public void LockTest()
         {
-            // Create a new chest that is in the closed state
+            // Create a new chest that is initially closed
             TreasureChest chest = new TreasureChest(TreasureChest.State.Closed);
-            chest.Open();
-            Assert.AreEqual(chest.GetState(), TreasureChest.State.Open);
+
+            // Lock the chest
+            chest.Lock();
+
+            // Verify that the chest is now in the locked state
+            Assert.AreEqual(TreasureChest.State.Locked, chest.GetState());
+
+            // Try to lock the chest again
+            chest.Lock();
+
+            // Verify that the chest remains in the locked state
+            Assert.AreEqual(TreasureChest.State.Locked, chest.GetState());
         }
 
         [TestMethod]
-        public void OpenOpenTest()
+        public void OpenTest()
         {
-            // Create a new chest that is in the open state
-            TreasureChest chest = new TreasureChest(TreasureChest.State.Open);
+            // Create a new chest that is initially closed
+            TreasureChest chest = new TreasureChest(TreasureChest.State.Closed);
+
+            // Open the chest
             chest.Open();
-            Assert.AreEqual(chest.GetState(), TreasureChest.State.Open);
+
+            // Verify that the chest is now in the open state
+            Assert.AreEqual(TreasureChest.State.Open, chest.GetState());
+
+            // Try to open the chest again
+            chest.Open();
+
+            // Verify that the chest remains in the open state
+            Assert.AreEqual(TreasureChest.State.Open, chest.GetState());
+
+            // Create a new chest that is initially locked
+            TreasureChest lockedChest = new TreasureChest(TreasureChest.State.Locked);
+
+            // Try to open the locked chest
+            lockedChest.Open();
+
+            // Verify that the chest remains in the locked state
+            Assert.AreEqual(TreasureChest.State.Locked, lockedChest.GetState());
+        }
+
+        [TestMethod]
+        public void CloseTest()
+        {
+            // Create a new chest that is initially open
+            TreasureChest chest = new TreasureChest(TreasureChest.State.Open);
+
+            // Close the chest
+            chest.Close();
+
+            // Verify that the chest is now in the closed state
+            Assert.AreEqual(TreasureChest.State.Closed, chest.GetState());
+
+            // Try to close the chest again
+            chest.Close();
         }
     }
 }
