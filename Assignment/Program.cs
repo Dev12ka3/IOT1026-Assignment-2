@@ -2,6 +2,9 @@
 {
     static class Program
     {
+        /// <summary>
+        /// The entry point of the program.
+        /// </summary>
         static void Main()
         {
             System.Console.WriteLine("Hello World");
